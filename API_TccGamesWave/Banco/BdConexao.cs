@@ -29,12 +29,37 @@ namespace API_TccGamesWave.Banco
             }
 
 
-            //Selecet umn
+            //Selecet um prod pelo cod
             public List<Produto> SelecionaUmProdSimples(int idProd)
             {
 
                 MySqlCommand cmd = new MySqlCommand("call spMostraProdSimples(@idProd)", conexao);
                 cmd.Parameters.AddWithValue("@idProd", idProd);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                List<Produto> prods = new List<Produto>();
+                while (reader.Read())
+                {
+                    var TempProd = new Produto()
+                    {
+                        CodProd = int.Parse(reader["codProd"].ToString()),
+                        ProdNome = reader["prodNome"].ToString(),
+                        ProdTipo = reader["prodTipo"].ToString(),
+                        ProdValor = decimal.Parse(reader["prodValor"].ToString()),
+                        ImgCapa = reader["imgCapa"].ToString()
+                    };
+
+                    prods.Add(TempProd);
+                }
+                reader.Close();
+                return prods;
+            }
+
+            //mostra prod por categoria 
+            public List<Produto> ProdPorCategoria(string cat)
+            {
+
+                MySqlCommand cmd = new MySqlCommand("call spMostraProdCategoria(@cat)", conexao);
+                cmd.Parameters.AddWithValue("@cat", cat);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 List<Produto> prods = new List<Produto>();
                 while (reader.Read())

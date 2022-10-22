@@ -11,16 +11,38 @@ namespace API_TccGamesWave.Controllers
 {
     public class ProdutoController : ApiController
     {
-        //Mostra Pord simples por cod
+        //Mostra Prod simples por cod
         [HttpGet]
         [ActionName("umProdSimples")]
-        public IEnumerable<Produto> SelecionaUmaCantada(int idProd)
+        public IEnumerable<Produto> SelecionaUmProdSimples(int idProd)
         {
             //tenta conectar ao banco
             try
             {
                 BdConector db = new BdConector();
                 var cants = db.SelecionaUmProdSimples(idProd);
+                db.FecharBd();
+                return cants;
+            }
+            catch (Exception e)
+            {
+                //se der erado o banco retorna erro de desautorizado 
+                var resp = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                throw new HttpResponseException(resp);
+            }
+        }
+
+
+        //Mostra Prod simples por categoria
+        [HttpGet]
+        [ActionName("prodCategoria")]
+        public IEnumerable<Produto> ProdPorCategoria(string cat)
+        {
+            //tenta conectar ao banco
+            try
+            {
+                BdConector db = new BdConector();
+                var cants = db.ProdPorCategoria(cat);
                 db.FecharBd();
                 return cants;
             }
