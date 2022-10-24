@@ -78,6 +78,33 @@ namespace API_TccGamesWave.Banco
                 reader.Close();
                 return prods;
             }
+
+            public List<Cliente> DadosCliente (string idCli)
+            {
+
+                MySqlCommand cmd = new MySqlCommand("call spDadosCliente(@idCli)", conexao);
+                cmd.Parameters.AddWithValue("@idCli", idCli);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                List<Cliente> Cli = new List<Cliente>();
+                while (reader.Read())
+                {
+                    var TempCli = new Cliente()
+                    {
+                        CPF = reader["CPF"].ToString(),
+                        NomeCliente = reader["NomeCliente"].ToString(),
+                        DataNasc = DateTime.Parse(reader["DataNasc"].ToString()),
+                        Senha = reader["Senha"].ToString(),
+                        EmailCli = reader["EmailCli"].ToString(),
+                        CepCli = reader["CepCli"].ToString(),
+                        NumEndCli = reader["NumEndCli"].ToString(),
+                        TelCli = reader["TelCli"].ToString()
+                    };
+
+                    Cli.Add(TempCli);
+                }
+                reader.Close();
+                return Cli;
+            }
         }
     }
 }
