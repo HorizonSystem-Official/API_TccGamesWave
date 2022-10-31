@@ -156,6 +156,7 @@ namespace API_TccGamesWave.Banco
             //      Itens          //
             //                     //
             //*********************//
+
             public List<ItemCarrinho> MostraItens(string cpf)
             {
 
@@ -179,7 +180,34 @@ namespace API_TccGamesWave.Banco
                 return itens;
             }
 
-            public List<Cliente> DadosCliente (string CpfCli)
+            public List<Carrinho> TotalCarrinho(string cpf)
+            {
+
+                MySqlCommand cmd = new MySqlCommand("call spTotalCarrinho(@cpf)", conexao);
+                cmd.Parameters.AddWithValue("@cpf", cpf);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                List<Carrinho> carrinho = new List<Carrinho>();
+                while (reader.Read())
+                {
+                    var TempCarrinho = new Carrinho()
+                    {
+                        ValorTotal = decimal.Parse(reader["valorTotal"].ToString()),
+                        Cupom = reader["cupom"].ToString()
+                    };
+
+                    carrinho.Add(TempCarrinho);
+                }
+                reader.Close();
+                return carrinho;
+            }
+
+            //*********************//
+            //                     //
+            //      Cliente        //
+            //                     //
+            //*********************//
+
+            public List<Cliente> DadosCliente(string CpfCli)
             {
 
                 MySqlCommand cmd = new MySqlCommand("call spDadosCliente(@CpfCli)", conexao);
@@ -198,6 +226,27 @@ namespace API_TccGamesWave.Banco
                         CepCli = reader["CepCli"].ToString(),
                         NumEndCli = reader["NumEndCli"].ToString(),
                         TelCli = reader["TelCli"].ToString()
+                    };
+
+                    Cli.Add(TempCli);
+                }
+                reader.Close();
+                return Cli;
+            }
+
+            public List<Cliente> LoginCliente (string Emailcli, string senhaCli)
+            {
+
+                MySqlCommand cmd = new MySqlCommand("call spLoginCliente(@Emailcli, @senhaCli)", conexao);
+                cmd.Parameters.AddWithValue("@Emailcli", Emailcli);
+                cmd.Parameters.AddWithValue("@senhaCli", senhaCli);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                List<Cliente> Cli = new List<Cliente>();
+                while (reader.Read())
+                {
+                    var TempCli = new Cliente()
+                    {
+                        CPF = reader["CPF"].ToString(),
                     };
 
                     Cli.Add(TempCli);

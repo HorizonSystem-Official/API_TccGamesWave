@@ -32,5 +32,26 @@ namespace API_TccGamesWave.Controllers
                 throw new HttpResponseException(resp);
             }
         }
+
+        //lista itens 
+        [HttpGet]
+        [ActionName("TotalCarrinho")]
+        public List<Carrinho> TotalCarrinho(string cpf)
+        {
+            //tenta conectar ao banco
+            try
+            {
+                BdConector db = new BdConector();
+                var carrinho = db.TotalCarrinho(cpf);
+                db.FecharBd();
+                return carrinho;
+            }
+            catch (Exception e)
+            {
+                //se der erado o banco retorna erro de desautorizado 
+                var resp = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                throw new HttpResponseException(resp);
+            }
+        }
     }
 }

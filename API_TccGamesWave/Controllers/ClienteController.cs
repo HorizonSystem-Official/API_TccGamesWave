@@ -31,5 +31,26 @@ namespace API_TccGamesWave.Controllers
                 throw new HttpResponseException(resp);
             }
         }
+
+        //mostra dados do cliente
+        [HttpGet]
+        [ActionName("LoginCliente")]
+        public IEnumerable<Cliente> LoginCliente(string Emailcli, string senhaCli)
+        {
+            //tenta conectar ao banco
+            try
+            {
+                BdConector db = new BdConector();
+                var cli = db.LoginCliente(Emailcli, senhaCli);
+                db.FecharBd();
+                return cli;
+            }
+            catch (Exception e)
+            {
+                //se der erado o banco retorna erro de desautorizado 
+                var resp = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                throw new HttpResponseException(resp);
+            }
+        }
     }
 }
