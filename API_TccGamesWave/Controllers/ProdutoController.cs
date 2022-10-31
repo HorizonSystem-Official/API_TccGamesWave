@@ -95,5 +95,26 @@ namespace API_TccGamesWave.Controllers
                 throw new HttpResponseException(resp);
             }
         }
+
+        //Mostra comentario do Prod 
+        [HttpGet]
+        [ActionName("ImagensProd")]
+        public List<Imagens> MostraImgsProd(int idProd)
+        {
+            //tenta conectar ao banco
+            try
+            {
+                BdConector db = new BdConector();
+                var imgs = db.MostraImgsProd(idProd);
+                db.FecharBd();
+                return imgs;
+            }
+            catch (Exception e)
+            {
+                //se der erado o banco retorna erro de desautorizado 
+                var resp = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                throw new HttpResponseException(resp);
+            }
+        }
     }
 }

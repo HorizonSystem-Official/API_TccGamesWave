@@ -129,6 +129,56 @@ namespace API_TccGamesWave.Banco
                 return comentario;
             }
 
+            //Selecet imgs prod pelo cod
+            public List<Imagens> MostraImgsProd(int idProd)
+            {
+
+                MySqlCommand cmd = new MySqlCommand("call spMostraImgsProd(@idProd)", conexao);
+                cmd.Parameters.AddWithValue("@idProd", idProd);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                List<Imagens> imagens = new List<Imagens>();
+                while (reader.Read())
+                {
+                    var TempImg = new Imagens()
+                    {
+                        LinkImg = reader["linkImg"].ToString(),
+                        CatImg = reader["catImg"].ToString()
+                    };
+
+                    imagens.Add(TempImg);
+                }
+                reader.Close();
+                return imagens;
+            }
+
+            //*********************//
+            //                     //
+            //      Itens          //
+            //                     //
+            //*********************//
+            public List<ItemCarrinho> MostraItens(string cpf)
+            {
+
+                MySqlCommand cmd = new MySqlCommand("call spMostraItens(@cpf)", conexao);
+                cmd.Parameters.AddWithValue("@cpf", cpf);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                List<ItemCarrinho> itens = new List<ItemCarrinho>();
+                while (reader.Read())
+                {
+                    var TempItens = new ItemCarrinho()
+                    {
+                        ValorUnit = reader["valorUnit"].ToString(),
+                        QtnProd = int.Parse(reader["qtnProd"].ToString()),
+                        ValorTotal = reader["valorTotal"].ToString(),
+                        ProdNome = reader["prodNome"].ToString(),
+                    };
+
+                    itens.Add(TempItens);
+                }
+                reader.Close();
+                return itens;
+            }
+
             public List<Cliente> DadosCliente (string CpfCli)
             {
 
