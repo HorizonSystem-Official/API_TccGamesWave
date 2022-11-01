@@ -14,7 +14,7 @@ namespace API_TccGamesWave.Controllers
         //mostra dados do cliente
         [HttpGet]
         [ActionName("DadosCli")]
-        public IEnumerable<Cliente> DadosCliente(string CpfCli)
+        public Cliente DadosCliente(string CpfCli)
         {
             //tenta conectar ao banco
             try
@@ -35,7 +35,7 @@ namespace API_TccGamesWave.Controllers
         //mostra dados do cliente
         [HttpGet]
         [ActionName("LoginCliente")]
-        public IEnumerable<Cliente> LoginCliente(string Emailcli, string senhaCli)
+        public Cliente LoginCliente(string Emailcli, string senhaCli)
         {
             //tenta conectar ao banco
             try

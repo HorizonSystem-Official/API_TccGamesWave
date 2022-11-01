@@ -57,7 +57,7 @@ namespace API_TccGamesWave.Controllers
         //Mostra Prod detalhado
         [HttpGet]
         [ActionName("ProdDetalhado")]
-        public IEnumerable<Produto> ProdDetalhado(int idProd)
+        public Produto ProdDetalhado(int idProd)
         {
             //tenta conectar ao banco
             try

@@ -80,32 +80,30 @@ namespace API_TccGamesWave.Banco
             }
 
             //mostra prod detalhado
-            public List<Produto> ProdDetalhado(int idProd)
+            public Produto ProdDetalhado(int idProd)
             {
 
                 MySqlCommand cmd = new MySqlCommand("call spMostraProdDetalhado(@idProd)", conexao);
                 cmd.Parameters.AddWithValue("@idProd", idProd);
                 MySqlDataReader reader = cmd.ExecuteReader();
-                List<Produto> prods = new List<Produto>();
-                while (reader.Read())
+                Produto prods = new Produto();
+                if (reader.Read())
                 {
-                    var TempProd = new Produto()
-                    {
-                        CodProd = int.Parse(reader["codProd"].ToString()),
-                        ProdNome = reader["prodNome"].ToString(),
-                        ProdTipo = reader["prodTipo"].ToString(),
-                        ProdDesc = reader["prodDesc"].ToString(),
-                        ProdAnoLanc = reader["prodAnoLanc"].ToString(),
-                        ProdFaixaEtaria = reader["prodFaixaEtaria"].ToString(),
-                        ProdValor = decimal.Parse(reader["prodValor"].ToString()),
-                        ImgCapa = reader["imgCapa"].ToString()
-                    };
 
-                    prods.Add(TempProd);
+                    prods.CodProd = int.Parse(reader["codProd"].ToString());
+                    prods.ProdNome = reader["prodNome"].ToString();
+                    prods.ProdTipo = reader["prodTipo"].ToString();
+                    prods.ProdDesc = reader["prodDesc"].ToString();
+                    prods.ProdAnoLanc = reader["prodAnoLanc"].ToString();
+                    prods.ProdFaixaEtaria = reader["prodFaixaEtaria"].ToString();
+                    prods.ProdValor = decimal.Parse(reader["prodValor"].ToString());
+                    prods.ImgCapa = reader["imgCapa"].ToString();
+                  
                 }
                 reader.Close();
                 return prods;
             }
+
 
             //Selecet um prod pelo cod
             public List<Comentarios> MostraComentariosProd(int idProd)
@@ -180,25 +178,30 @@ namespace API_TccGamesWave.Banco
                 return itens;
             }
 
-            public List<Carrinho> TotalCarrinho(string cpf)
+            public Carrinho TotalCarrinho(string cpf)
             {
 
                 MySqlCommand cmd = new MySqlCommand("call spTotalCarrinho(@cpf)", conexao);
                 cmd.Parameters.AddWithValue("@cpf", cpf);
                 MySqlDataReader reader = cmd.ExecuteReader();
-                List<Carrinho> carrinho = new List<Carrinho>();
-                while (reader.Read())
+                Carrinho carrinho = new Carrinho();
+                if (reader.Read())
                 {
-                    var TempCarrinho = new Carrinho()
-                    {
-                        ValorTotal = decimal.Parse(reader["valorTotal"].ToString()),
-                        Cupom = reader["cupom"].ToString()
-                    };
-
-                    carrinho.Add(TempCarrinho);
+                    carrinho.ValorTotal = decimal.Parse(reader["valorTotal"].ToString());
+                    carrinho.Cupom = reader["cupom"].ToString();               
+        
                 }
                 reader.Close();
                 return carrinho;
+            }
+
+            public void addItemCarrinho(ItemCarrinho itemCarrinho)
+            {
+                MySqlCommand cmd = new MySqlCommand("call spInsertItemCarrinho(@spQtnProd, @CodProd, @cpf);", conexao);
+                cmd.Parameters.AddWithValue("@spQtnProd", itemCarrinho.QtnProd);
+                cmd.Parameters.AddWithValue("@CodProd", itemCarrinho.CodProd);
+                cmd.Parameters.AddWithValue("@cpf", itemCarrinho.Cpf);
+                cmd.ExecuteNonQuery();
             }
 
             //*********************//
@@ -207,49 +210,39 @@ namespace API_TccGamesWave.Banco
             //                     //
             //*********************//
 
-            public List<Cliente> DadosCliente(string CpfCli)
+            public Cliente DadosCliente(string CpfCli)
             {
 
                 MySqlCommand cmd = new MySqlCommand("call spDadosCliente(@CpfCli)", conexao);
                 cmd.Parameters.AddWithValue("@CpfCli", CpfCli);
                 MySqlDataReader reader = cmd.ExecuteReader();
-                List<Cliente> Cli = new List<Cliente>();
-                while (reader.Read())
+                Cliente Cli = new Cliente();
+                if (reader.Read())
                 {
-                    var TempCli = new Cliente()
-                    {
-                        CPF = reader["CPF"].ToString(),
-                        NomeCliente = reader["NomeCliente"].ToString(),
-                        DataNasc = DateTime.Parse(reader["DataNasc"].ToString()),
-                        Senha = reader["Senha"].ToString(),
-                        EmailCli = reader["EmailCli"].ToString(),
-                        CepCli = reader["CepCli"].ToString(),
-                        NumEndCli = reader["NumEndCli"].ToString(),
-                        TelCli = reader["TelCli"].ToString()
-                    };
-
-                    Cli.Add(TempCli);
+                    Cli.CPF = reader["CPF"].ToString();
+                    Cli.NomeCliente = reader["NomeCliente"].ToString();
+                    Cli.DataNasc = DateTime.Parse(reader["DataNasc"].ToString());
+                    Cli.Senha = reader["Senha"].ToString();
+                    Cli.EmailCli = reader["EmailCli"].ToString();
+                    Cli.CepCli = reader["CepCli"].ToString();
+                    Cli.NumEndCli = reader["NumEndCli"].ToString();
+                    Cli.TelCli = reader["TelCli"].ToString();
                 }
                 reader.Close();
                 return Cli;
             }
 
-            public List<Cliente> LoginCliente (string Emailcli, string senhaCli)
+            public Cliente LoginCliente (string Emailcli, string senhaCli)
             {
 
                 MySqlCommand cmd = new MySqlCommand("call spLoginCliente(@Emailcli, @senhaCli)", conexao);
                 cmd.Parameters.AddWithValue("@Emailcli", Emailcli);
                 cmd.Parameters.AddWithValue("@senhaCli", senhaCli);
                 MySqlDataReader reader = cmd.ExecuteReader();
-                List<Cliente> Cli = new List<Cliente>();
-                while (reader.Read())
+                Cliente Cli = new Cliente();
+                if (reader.Read())
                 {
-                    var TempCli = new Cliente()
-                    {
-                        CPF = reader["CPF"].ToString(),
-                    };
-
-                    Cli.Add(TempCli);
+                    Cli.CPF = reader["CPF"].ToString();
                 }
                 reader.Close();
                 return Cli;
