@@ -166,10 +166,13 @@ namespace API_TccGamesWave.Banco
                 {
                     var TempItens = new ItemCarrinho()
                     {
+
                         ValorUnit = reader["valorUnit"].ToString(),
                         QtnProd = int.Parse(reader["qtnProd"].ToString()),
                         ValorTotal = reader["valorTotal"].ToString(),
                         ProdNome = reader["prodNome"].ToString(),
+                        ImgCapa = reader["imgCapa"].ToString(),
+                        CodProd = int.Parse(reader["codProd"].ToString())
                     };
 
                     itens.Add(TempItens);
@@ -212,7 +215,6 @@ namespace API_TccGamesWave.Banco
 
             public Cliente DadosCliente(string CpfCli)
             {
-
                 MySqlCommand cmd = new MySqlCommand("call spDadosCliente(@CpfCli)", conexao);
                 cmd.Parameters.AddWithValue("@CpfCli", CpfCli);
                 MySqlDataReader reader = cmd.ExecuteReader();

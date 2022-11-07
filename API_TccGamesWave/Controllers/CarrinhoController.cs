@@ -54,6 +54,7 @@ namespace API_TccGamesWave.Controllers
             }
         }
 
+        //criação de um item venda
         [HttpPost]
         [ActionName("addItemCarrinho")]
         public HttpResponseMessage Post([FromBody] List<ItemCarrinho> itens)

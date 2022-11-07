@@ -13,5 +13,6 @@ namespace API_TccGamesWave.Models
         public string ValorUnit { get; set; }
         public string Cpf { get; set; }
         public string ValorTotal { get; set; }
+        public string ImgCapa { get; set; }
     }
 }
