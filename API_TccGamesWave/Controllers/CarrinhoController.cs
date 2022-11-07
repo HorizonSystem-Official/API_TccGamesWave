@@ -53,7 +53,7 @@ namespace API_TccGamesWave.Controllers
                 throw new HttpResponseException(resp);
             }
         }
-
+        //add item ao carrinho
         [HttpPost]
         [ActionName("addItemCarrinho")]
         public HttpResponseMessage Post([FromBody] List<ItemCarrinho> itens)

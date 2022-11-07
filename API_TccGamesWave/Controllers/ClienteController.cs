@@ -52,5 +52,27 @@ namespace API_TccGamesWave.Controllers
                 throw new HttpResponseException(resp);
             }
         }
+
+        //add cliente
+        [HttpPost]
+        [ActionName("addCliete")]
+        public HttpResponseMessage Post([FromBody] List<Cliente> itens)
+        {
+            if (itens == null)
+            {
+                return new HttpResponseMessage(HttpStatusCode.NotModified);
+            }
+            BdConector db = new BdConector();
+            foreach (var item in itens)
+            {
+                db.addCliente(item);
+            }
+
+            db.FecharBd();
+
+            //retorna mensagem de sucesso
+            var response = new HttpResponseMessage(HttpStatusCode.Created);
+            return response;
+        }
     }
 }
