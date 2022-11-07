@@ -226,8 +226,6 @@ namespace API_TccGamesWave.Banco
                     Cli.DataNasc = DateTime.Parse(reader["DataNasc"].ToString());
                     Cli.Senha = reader["Senha"].ToString();
                     Cli.EmailCli = reader["EmailCli"].ToString();
-                    Cli.CepCli = reader["CepCli"].ToString();
-                    Cli.NumEndCli = reader["NumEndCli"].ToString();
                     Cli.TelCli = reader["TelCli"].ToString();
                 }
                 reader.Close();
@@ -248,6 +246,46 @@ namespace API_TccGamesWave.Banco
                 }
                 reader.Close();
                 return Cli;
+            }
+
+            public void addCliente(Cliente cliente)
+            {
+                MySqlCommand cmd = new MySqlCommand("call spInsertCliente(@cpf, @Nome, @DataNasc, @Senha, @Email,@TelCli);", conexao);
+                cmd.Parameters.AddWithValue("@cpf",cliente.CPF);
+                cmd.Parameters.AddWithValue("@Nome", cliente.NomeCliente);
+                cmd.Parameters.AddWithValue("@DataNasc", cliente.DataNasc);
+                cmd.Parameters.AddWithValue("@Senha",cliente.Senha);
+                cmd.Parameters.AddWithValue("@Email", cliente.EmailCli);
+                cmd.Parameters.AddWithValue("@TelCli", cliente.TelCli);
+                cmd.ExecuteNonQuery();
+            }
+
+
+            //*********************//
+            //                     //
+            //      Venda          //
+            //                     //
+            //*********************//
+
+            public Venda ConcluiVenda(string modoDePag, int VezesPag, string cpf)
+            {
+
+                MySqlCommand cmd = new MySqlCommand("call spLoginCliente(@modoDePag, @VezesPag, @cpf)", conexao);
+                cmd.Parameters.AddWithValue("@modoDePag", modoDePag);
+                cmd.Parameters.AddWithValue("@VezesPag", VezesPag);
+                cmd.Parameters.AddWithValue("@cpf", cpf);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                Venda venda = new Venda();
+                if (reader.Read())
+                {
+                    venda.CodVenda = reader["CodVenda"].ToString();
+                    venda.FormaPag = reader["FormaPag"].ToString();
+                    venda.Parcela = reader["Parcela"].ToString();
+                    venda.Total = reader["Total"].ToString();
+                    venda.Clinte_CPF = reader["Clinte_CPF"].ToString();
+                }
+                reader.Close();
+                return venda;
             }
         }
     }
