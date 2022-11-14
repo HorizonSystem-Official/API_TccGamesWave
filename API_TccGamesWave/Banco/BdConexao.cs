@@ -267,22 +267,30 @@ namespace API_TccGamesWave.Banco
             //                     //
             //*********************//
 
-            public Venda ConcluiVenda(string modoDePag, int VezesPag, string cpf)
+            public void ConcluiVenda(Venda venda)
             {
-
-                MySqlCommand cmd = new MySqlCommand("call spLoginCliente(@modoDePag, @VezesPag, @cpf)", conexao);
-                cmd.Parameters.AddWithValue("@modoDePag", modoDePag);
-                cmd.Parameters.AddWithValue("@VezesPag", VezesPag);
-                cmd.Parameters.AddWithValue("@cpf", cpf);
+                MySqlCommand cmd = new MySqlCommand("call spInsertVenda(@modoDePag, @VezesPag, @cpf);", conexao);
+                cmd.Parameters.AddWithValue("@modoDePag", venda.FormaPag);
+                cmd.Parameters.AddWithValue("@VezesPag", venda.Parcela);
+                cmd.Parameters.AddWithValue("@cpf", venda.Clinte_CPF);
+                cmd.ExecuteNonQuery();
+            }
+           
+            public Venda ReciboCompra(string CpfCli)
+            {
+                MySqlCommand cmd = new MySqlCommand("call spReciboVenda(@CpfCli)", conexao);
+                cmd.Parameters.AddWithValue("@CpfCli", CpfCli);
                 MySqlDataReader reader = cmd.ExecuteReader();
                 Venda venda = new Venda();
+                Cliente cli = new Cliente();
                 if (reader.Read())
                 {
-                    venda.CodVenda = reader["CodVenda"].ToString();
+                    venda.CodVenda = int.Parse(reader["CodVenda"].ToString());
                     venda.FormaPag = reader["FormaPag"].ToString();
-                    venda.Parcela = reader["Parcela"].ToString();
-                    venda.Total = reader["Total"].ToString();
-                    venda.Clinte_CPF = reader["Clinte_CPF"].ToString();
+                    venda.Parcela = int.Parse(reader["Parcela"].ToString());
+                    venda.Total = float.Parse(reader["Total"].ToString());
+                    venda.Clinte_CPF = reader["fk_Clinte_CPF"].ToString();
+                    cli.NomeCliente = reader["NomeCliente"].ToString();
                 }
                 reader.Close();
                 return venda;

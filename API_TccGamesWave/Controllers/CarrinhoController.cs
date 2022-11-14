@@ -55,25 +55,25 @@ namespace API_TccGamesWave.Controllers
         }
 
         //criação de um item venda
-        [HttpPost]
-        [ActionName("addItemCarrinho")]
-        public HttpResponseMessage Post([FromBody] List<ItemCarrinho> itens)
-        {
-            if (itens == null)
-            {
-                return new HttpResponseMessage(HttpStatusCode.NotModified);
-            }
-            BdConector db = new BdConector();
-            foreach (var item in itens)
-            {
-                db.addItemCarrinho(item);
-            }
+         [HttpPost]
+         [ActionName("addItemCarrinho")]
+         public HttpResponseMessage Post([FromBody] List<ItemCarrinho> itens)
+         {
+             if (itens == null)
+             {
+                 return new HttpResponseMessage(HttpStatusCode.NotModified);
+             }
+             BdConector db = new BdConector();
+             foreach (var item in itens)
+             {
+                 db.addItemCarrinho(item);
+             }
 
-            db.FecharBd();
+             db.FecharBd();
 
-            //retorna mensagem de sucesso
-            var response = new HttpResponseMessage(HttpStatusCode.Created);
-            return response;
-        }
+             //retorna mensagem de sucesso
+             var response = new HttpResponseMessage(HttpStatusCode.Created);
+             return response;
+         }
     }
 }

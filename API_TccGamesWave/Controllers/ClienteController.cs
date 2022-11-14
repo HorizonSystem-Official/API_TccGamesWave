@@ -55,7 +55,7 @@ namespace API_TccGamesWave.Controllers
 
         //add cliente
         [HttpPost]
-        [ActionName("addCliete")]
+        [ActionName("addCliente")]
         public HttpResponseMessage Post([FromBody] List<Cliente> itens)
         {
             if (itens == null)
