@@ -167,9 +167,9 @@ namespace API_TccGamesWave.Banco
                     var TempItens = new ItemCarrinho()
                     {
 
-                        ValorUnit = reader["valorUnit"].ToString(),
+                        ValorUnit = decimal.Parse(reader["valorUnit"].ToString()),
                         QtnProd = int.Parse(reader["qtnProd"].ToString()),
-                        ValorTotal = reader["valorTotal"].ToString(),
+                        ValorTotal = decimal.Parse(reader["valorTotal"].ToString()),
                         ProdNome = reader["prodNome"].ToString(),
                         ImgCapa = reader["imgCapa"].ToString(),
                         CodProd = int.Parse(reader["codProd"].ToString())
@@ -200,10 +200,18 @@ namespace API_TccGamesWave.Banco
 
             public void addItemCarrinho(ItemCarrinho itemCarrinho)
             {
-                MySqlCommand cmd = new MySqlCommand("call spInsertItemCarrinho(@spQtnProd, @CodProd, @cpf);", conexao);
-                cmd.Parameters.AddWithValue("@spQtnProd", itemCarrinho.QtnProd);
+                MySqlCommand cmd = new MySqlCommand("call spInsertItemCarrinho(@QtnProd, @CodProd, @cpf);", conexao);
+                cmd.Parameters.AddWithValue("@QtnProd", itemCarrinho.QtnProd);
                 cmd.Parameters.AddWithValue("@CodProd", itemCarrinho.CodProd);
                 cmd.Parameters.AddWithValue("@cpf", itemCarrinho.Cpf);
+                cmd.ExecuteNonQuery();
+            }
+
+            public void RemoveItemCarrinho(int codProd, string cpf)
+            {
+                MySqlCommand cmd = new MySqlCommand("call spRemoveItem (@CodProd, @cpf);", conexao);
+                cmd.Parameters.AddWithValue("@CodProd", codProd);
+                cmd.Parameters.AddWithValue("@cpf", cpf);
                 cmd.ExecuteNonQuery();
             }
 

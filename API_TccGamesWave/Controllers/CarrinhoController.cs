@@ -75,5 +75,17 @@ namespace API_TccGamesWave.Controllers
              var response = new HttpResponseMessage(HttpStatusCode.Created);
              return response;
          }
+
+        //remove item
+        [HttpDelete]
+        [ActionName("removeItem")]
+        public HttpResponseMessage Delete(int codProd, string cpf)
+        {
+            BdConector db = new BdConector();
+            db.RemoveItemCarrinho(codProd, cpf);
+            db.FecharBd();
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
     }
 }
