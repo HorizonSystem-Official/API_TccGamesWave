@@ -54,6 +54,27 @@ namespace API_TccGamesWave.Controllers
             }
         }
 
+        //Mostra Prod simples por categoria
+        [HttpGet]
+        [ActionName("PesquisaProd")]
+        public IEnumerable<Produto> PesquisaProd(string txtPesquisa)
+        {
+            //tenta conectar ao banco
+            try
+            {
+                BdConector db = new BdConector();
+                var cants = db.ProdPorPesquisa(txtPesquisa);
+                db.FecharBd();
+                return cants;
+            }
+            catch (Exception e)
+            {
+                //se der erado o banco retorna erro de desautorizado 
+                var resp = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                throw new HttpResponseException(resp);
+            }
+        }
+
         //Mostra Prod detalhado
         [HttpGet]
         [ActionName("ProdDetalhado")]

@@ -474,7 +474,7 @@ call spDadosFunc(1);
 call spMostraProd(1);
 call spMostraProdSimples(2);
 call spMostraProdCategoria("Tiro");
-call spPesquisaProduto("vam");
+call spPesquisaProduto("am");
 
 call spMostraComentarios(1);
 call spMostraProdDetalhado(1);

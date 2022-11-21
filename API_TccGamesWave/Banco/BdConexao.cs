@@ -79,6 +79,32 @@ namespace API_TccGamesWave.Banco
                 return prods;
             }
 
+
+            //mostra prod por categoria 
+            public List<Produto> ProdPorPesquisa(string txtPesquisa)
+            {
+
+                MySqlCommand cmd = new MySqlCommand("call spPesquisaProduto(@txtPesquisa)", conexao);
+                cmd.Parameters.AddWithValue("@txtPesquisa", txtPesquisa);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                List<Produto> prods = new List<Produto>();
+                while (reader.Read())
+                {
+                    var TempProd = new Produto()
+                    {
+                        CodProd = int.Parse(reader["codProd"].ToString()),
+                        ProdNome = reader["prodNome"].ToString(),
+                        ProdTipo = reader["prodTipo"].ToString(),
+                        ProdValor = decimal.Parse(reader["prodValor"].ToString()),
+                        ImgCapa = reader["imgCapa"].ToString()
+                    };
+
+                    prods.Add(TempProd);
+                }
+                reader.Close();
+                return prods;
+            }
+
             //mostra prod detalhado
             public Produto ProdDetalhado(int idProd)
             {
@@ -232,7 +258,6 @@ namespace API_TccGamesWave.Banco
                     Cli.CPF = reader["CPF"].ToString();
                     Cli.NomeCliente = reader["NomeCliente"].ToString();
                     Cli.DataNasc = DateTime.Parse(reader["DataNasc"].ToString());
-                    Cli.Senha = reader["Senha"].ToString();
                     Cli.EmailCli = reader["EmailCli"].ToString();
                     Cli.TelCli = reader["TelCli"].ToString();
                 }
