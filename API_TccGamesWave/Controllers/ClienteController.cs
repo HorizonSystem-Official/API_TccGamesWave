@@ -56,18 +56,14 @@ namespace API_TccGamesWave.Controllers
         //add cliente
         [HttpPost]
         [ActionName("addCliente")]
-        public HttpResponseMessage Post([FromBody] List<Cliente> itens)
+        public HttpResponseMessage Post([FromBody] Cliente itens)
         {
             if (itens == null)
             {
                 return new HttpResponseMessage(HttpStatusCode.NotModified);
             }
             BdConector db = new BdConector();
-            foreach (var item in itens)
-            {
-                db.addCliente(item);
-            }
-
+            db.addCliente(itens);
             db.FecharBd();
 
             //retorna mensagem de sucesso

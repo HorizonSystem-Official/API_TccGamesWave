@@ -14,18 +14,14 @@ namespace API_TccGamesWave.Controllers
         //criação de um item venda
         [HttpPost]
         [ActionName("EfetuaCompra")]
-        public HttpResponseMessage Post([FromBody] List<Venda> itensVenda)
+        public HttpResponseMessage Post([FromBody] Venda itensVenda)
         {
             if (itensVenda == null)
             {
                 return new HttpResponseMessage(HttpStatusCode.NotModified);
             }
             BdConector db = new BdConector();
-            foreach (var item in itensVenda)
-            {
-                db.ConcluiVenda(item);
-            }
-
+            db.ConcluiVenda(itensVenda);
             db.FecharBd();
 
             //retorna mensagem de sucesso
