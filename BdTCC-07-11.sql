@@ -300,7 +300,8 @@ end $$
 delimiter $$    
 create procedure spPesquisaProduto(spPesquia varchar(150))
 begin
-	select CodProd, ProdNome, ProdTipo, ProdValor,ImgCapa from tbProduto where ProdNome LIKE CONCAT('%',spPesquia,'%') OR ProdTipo LIKE CONCAT('%',spPesquia,'%') OR ProdDesc LIKE CONCAT('%',spPesquia,'%');
+	select CodProd, ProdNome, ProdTipo, ProdValor,ImgCapa from tbProduto where ProdNome 
+    LIKE CONCAT('%',spPesquia,'%') OR ProdTipo LIKE CONCAT('%',spPesquia,'%') OR ProdDesc LIKE CONCAT('%',spPesquia,'%');
 end $$
 
 ##produto detalhado
@@ -420,7 +421,7 @@ call spInsertCliente("918.545.618-38", "Enzo Braga", "2009-04-14", "123456", "Lo
 call spInsertCliente("257.938.258-51", "Hugo Domingues", "1990-03-14", "123456", "semcriatividade123@gmail.com","(41) 98671-9617");
 call spInsertCliente("674.364.258-46", "Vinicius Monteiro", "1990-03-14", "123456", "blublu@gmail.com","(41) 98672-9617");
 call spInsertCliente("057.184.478-29", "Kaleb Duarte", "1990-03-14", "123456", "qmekaleb@gmail.com","(41) 98673-9617");
-call spInsertCliente("561.414.118-94", "Angel of The Night", "1990-03-14", "123456", "anjinho@gmail.com","(41) 97674-9617");
+call spInsertCliente("561.414.118-94", "Angel Da Silva", "1990-03-14", "123456", "anjinho@gmail.com","(41) 97674-9617");
 call spInsertCliente("561.454.118-94", "Catarina Rodrigues", "1990-03-14", "123456", "desempregada123@gmail.com","(41) 98874-9617");
 
 call spInsertProduto("Gta 2","Tiro", 10, "GTA está de volta. E agora, o FBI e o exército estão se envolvendo...Sete gangues violentas se envolvem em uma disputa de poder e cabe a você construir sua reputação. Respeito se conquista, não é ganho.","2001", "+14", 20.32, "https://m.media-amazon.com/images/M/MV5BMjZjZmFkZDYtYzBlMi00MmNiLWFjYWItNjBhZTgzNzBiNGM1XkEyXkFqcGdeQXVyNDY4OTcyNDQ@._V1_FMjpg_UX1000_.jpg-", 1);
@@ -430,25 +431,78 @@ call spInsertProduto("Five Nights at Freddy's: Security Breach","Terror", 89, "Q
 call spInsertProduto("The Last of Us","RPG", 10, "Em uma civilização devastada, em que infectados e sobreviventes veteranos estão à solta, Joel, um protagonista abatido, é contratado para tirar uma garota de 14 anos, Ellie, de uma zona de quarentena militar.","2019", "+18", 49.90, "https://upload.wikimedia.org/wikipedia/en/thumb/4/46/Video_Game_Cover_-_The_Last_of_Us.jpg/220px-Video_Game_Cover_-_The_Last_of_Us.jpg", 3);
 call spInsertProduto("STAR WARS: SQUADRONS","Tiro", 80, "Domine a arte de pilotagem autêntica de STAR WARS™: Squadrons. Sinta a adrenalina das lutas em primeira pessoa ao lado do seu esquadrão e aperte o cinto em uma emocionante história de STAR WARS™.","2001", "+14", 39.80, "https://image.api.playstation.com/vulcan/img/rnd/202009/2410/aaIGMZl7LGnfbmQNOrHOrL6c.png?w=780&thumb=false", 4);
 call spInsertProduto("Elden Ring","RPG", 10, "O NOVO RPG DE AÇÃO E FANTASIA. Levante-se, Maculado, e seja guiado pela graça para portar o poder do Anel Prístino e se tornar um Lorde Prístino nas Terras Intermédias.","2001", "+14", 249.90, "https://upload.wikimedia.org/wikipedia/pt/0/0d/Elden_Ring_capa.jpg", 1);
-call spInsertProduto("GODDESS OF VICTORY: NIKKE","Tiro/Gacha", 20,"NIKKE é um jogo de tiro RPG de ficção científica imersivo, onde você recruta e comanda várias donzelas para formar um lindo esquadrão de garotas de anime especializado em empunhar armas e outras armas de ficção científica exclusivas.","2022","+14", 15.00,"https://mmorpgbr.com.br/wp-content/uploads/2022/11/NIKKE-Goddess-of-Victory-Coming-to-Japan-in-2022.webp",2);
+call spInsertProduto("GODDESS OF VICTORY: NIKKE","Tiro", 20,"NIKKE é um jogo de tiro RPG de ficção científica imersivo, onde você recruta e comanda várias donzelas para formar um lindo esquadrão de garotas de anime especializado em empunhar armas e outras armas de ficção científica exclusivas.","2022","+14", 15.00,"https://mmorpgbr.com.br/wp-content/uploads/2022/11/NIKKE-Goddess-of-Victory-Coming-to-Japan-in-2022.webp",2);
 call spInsertProduto("Final Fantasy 7","RPG", 20,"O mundo está sob o domínio da Shinra, uma empresa que controla a energia mako, a força vital do planeta. Na cidade de Midgar, Cloud Strife, um antigo membro da unidade de elite SOLDIER da Shinra e agora mercenário, ajuda um grupo de resistência.","2020","+12",249.90,"https://image.api.playstation.com/vulcan/img/cfn/11307-dNapclgq_VqNtQ98Xp_LxovvAdjd5AknZhd_-k2Cckq9FPtKDXAHk-ODCfvDKChH6hkEO0VLtj7Vk4E-Z8G707oe0N.png",1);
 call spInsertProduto("God of War Ragnarok","RPG", 30,"Kratos e Atreus devem viajar pelos Nove Reinos em busca de respostas enquanto as forças asgardianas se preparam para uma batalha profetizada que causará o fim do mundo.","2022","+18",300.00,"https://sm.ign.com/ign_br/game/g/god-of-war/god-of-war-ragnarok_z48t.jpg",1);
 call spInsertProduto("Hollow Knight","Aventura",20,"Explore cavernas serpenteantes, cidades antigas e ermos mortais. Lute contra criaturas malignas, alie-se a insetos bizarros. Descubra a história antiga e solucione mistérios enterrados no coração do reino.","2017","+10", 27.90,"https://images.squarespace-cdn.com/content/v1/606d159a953867291018f801/1619987722169-VV6ZASHHZNRBJW9X0PLK/Key_Art_02_layeredjpg.jpg?format=1500w",4)
-call spInsertProduto("Genshim impact","Aventura/Gacha", 15,"Sob o céu desconhecido, vocês são um par de gêmeos viajantes, vindos de um outro mundo. Separados por deuses estranhos, você foi selado e adormeceu. Ao acordar novamente, o cenário entre o céu e a terra mudou completamente...","2020","+12", 54.50,"https://m.media-amazon.com/images/M/MV5BNzAyMzEwN2YtODVkZi00NzBlLTkwNDAtZjhhZjYxZjQ1OWJkXkEyXkFqcGdeQXVyMTAyNjg4NjE0._V1_FMjpg_UX1000_.jpg",2)
-call spInsertProduto("Bendy and the Dark Revival","Horror", 20,"Bendy and the Dark Revival™ é um jogo de terror de sobrevivência em primeira pessoa ambientado no estúdio de desenho animado mais assustador que já existiu. Acima de tudo, tema o Demônio da Tinta... e sobreviva.","2022","+14", 67.90," https://uploads.spiritfanfiction.com/historias/capitulos/201910/bendy-torture-and-the-ink-machine-17771323-271020192302.jpg",1)
-call spInsertProduto("Vampiros Sobreviventes","RogueLike", 32,"Acabe com milhares de criaturas noturnas e sobreviva até o amanhecer! Onde suas escolhas podem fazer você crescer rapidamente e aniquilar milhares de monstros que aparecem pelo caminho.","2022","+10", 25.00,"https://static-cdn.jtvnw.net/ttv-boxart/1833694612_IGDB-285x380.jpg", 3)
+call spInsertProduto("Genshim impact","Aventura", 15,"Sob o céu desconhecido, vocês são um par de gêmeos viajantes, vindos de um outro mundo. Separados por deuses estranhos, você foi selado e adormeceu. Ao acordar novamente, o cenário entre o céu e a terra mudou completamente...","2020","+12", 54.50,"https://m.media-amazon.com/images/M/MV5BNzAyMzEwN2YtODVkZi00NzBlLTkwNDAtZjhhZjYxZjQ1OWJkXkEyXkFqcGdeQXVyMTAyNjg4NjE0._V1_FMjpg_UX1000_.jpg",2)
+call spInsertProduto("Bendy and the Dark Revival","Terror", 20,"Bendy and the Dark Revival™ é um jogo de terror de sobrevivência em primeira pessoa ambientado no estúdio de desenho animado mais assustador que já existiu. Acima de tudo, tema o Demônio da Tinta... e sobreviva.","2022","+14", 67.90," https://uploads.spiritfanfiction.com/historias/capitulos/201910/bendy-torture-and-the-ink-machine-17771323-271020192302.jpg",1)
+call spInsertProduto("Vampiros Sobreviventes","Simulação", 32,"Acabe com milhares de criaturas noturnas e sobreviva até o amanhecer! Onde suas escolhas podem fazer você crescer rapidamente e aniquilar milhares de monstros que aparecem pelo caminho.","2022","+10", 25.00,"https://static-cdn.jtvnw.net/ttv-boxart/1833694612_IGDB-285x380.jpg", 3)
 call spInsertProduto("Mineirinho Ultra Adventures","Plataforma", 18,"Um jogo de plataforma 3d muito legal, muitas aventuras extremas com nosso amigo Minerinho, agora temos a opção Double Miner e a aventura fica muito mais legal.","2017","Livre", 5.00,"https://cdn2.steamgriddb.com/file/sgdb-cdn/grid/39260f85ab3a3963a3eb419b1f1fc6ea.png", 1)
 call spInsertProduto("Gunner, HEAT, PC","Simulação", 2,"GHPC é um jogo de simulação sobre combate montado moderno, com atenção especial à autenticidade e diversão.","2022","+14", 60.00,"https://cdn.akamai.steamstatic.com/steam/apps/1705180/capsule_616x353.jpg?t=1663194680", 3)
 call spInsertProduto("Dead Cells","RogueLike", 66,"Você vai explorar um castelo extenso e em constante mutação... considerando que consiga enfrentar seus guardiões em combates 2D inspirados em Dark Souls. Sem checkpoints. Mate, morra, aprenda, repita.","2018","+14", 47.90,"https://static-cdn.jtvnw.net/ttv-boxart/495961_IGDB-272x380.jpg",2)
-call spInsertProduto("Forza Horizon 2","Carro", 14,"Jogo de Carro revolucionario, com milhares de opções de customização disponiveis e gameplay involvente","2014","+10", 120.00,"https://sm.ign.com/ign_br/cover/f/forza-hori/forza-horizon-2_8ggj.jpg", 1)
-call spInsertProduto("Minecraft","Simulação", 999,"Explore mundos infinitos e construa desde simples casas a grandiosos castelos. Jogue no modo criativo com recursos ilimitados ou minere fundo no mundo no modo sobrevivência, criando armas e armaduras para lutar contra criaturas perigosas.","2011","Livre", 25.00,"https://www.minecraft.net/content/dam/games/minecraft/key-art/Games_Subnav_Minecraft-300x465.jpg", 4)
+call spInsertProduto("Forza Horizon 2","Simulação", 14,"Jogo de Carro revolucionario, com milhares de opções de customização disponiveis e gameplay involvente","2014","+10", 120.00,"https://sm.ign.com/ign_br/cover/f/forza-hori/forza-horizon-2_8ggj.jpg", 1)
+call spInsertProduto("Minecraft","Simulação", 999,"Explore mundos infinitos e construa desde simples casas a grandiosos castelos. Jogue no modo criativo com recursos ilimitados ou minere fundo no mundo no modo sobrevivência, criando armas e armaduras para lutar contra criaturas perigosas.","2011","Livre", 25.00,"https://upload.wikimedia.org/wikipedia/pt/thumb/9/9c/Minecraft_capa.png/260px-Minecraft_capa.png", 4)
 
-
+update tbproduto set ImgCapa="https://upload.wikimedia.org/wikipedia/pt/thumb/9/9c/Minecraft_capa.png/260px-Minecraft_capa.png" where CodProd=18
+select * from tbproduto
 call spInsertImg("https://i.ytimg.com/vi/RdGCN2mtgJQ/maxresdefault.jpg", "Imagem",2);
 call spInsertImg("https://i.ytimg.com/vi/3FzriRcKwjg/maxresdefault.jpg", "Imagem",1);
 call spInsertImg("https://img.utdstc.com/screen/fad/8f5/fad8f5dd318d30ce1e8ba2548038bf2f8853b0edae95185627aa93b7d09920d8:200", "Imagem",1);
+
+
 call spInsertComentarios("Muito bom", 1, "333.333.333-33");
 call spInsertComentarios("jogo epico nosssa", 1, "333.333.333-33");
+
+call spInsertComentarios("Diverido", 2, "333.333.333-33");
+call spInsertComentarios("Amei", 2, "918.545.618-38");
+
+call spInsertComentarios("Muito Asustador", 3, "057.184.478-29");
+call spInsertComentarios("jogo Muito bom XD", 3, "333.333.333-33");
+call spInsertComentarios("Fofo :D", 3, "257.938.258-51");
+call spInsertComentarios("jogo epico nosssa", 3, "561.454.118-94");
+
+call spInsertComentarios("Historia boa", 4, "257.938.258-51");
+call spInsertComentarios("jogo epico nosssa", 4, "918.545.618-38");
+call spInsertComentarios("Difcil", 4, "057.184.478-29");
+
+call spInsertComentarios("Amo Star Wars", 5, "561.454.118-94");
+
+call spInsertComentarios("Muito bom", 6, "333.333.333-33");
+call spInsertComentarios("jogo epico nosssa", 6, "057.184.478-29");
+
+call spInsertComentarios("o JOgo te cativa", 7, "057.184.478-29");
+call spInsertComentarios("Ruim", 7, "333.333.333-33");
+
+call spInsertComentarios("Bora cratos", 9, "561.454.118-94");
+call spInsertComentarios("Amei essa versão", 9, "918.545.618-38");
+call spInsertComentarios("bom", 10, "333.333.333-33");
+call spInsertComentarios("Pessimo", 10, "057.184.478-29");
+
+call spInsertComentarios("Jogo de Otaku", 11, "333.333.333-33");
+call spInsertComentarios("Gastei todo o meu dinheiro", 11, "918.545.618-38");
+call spInsertComentarios("Visiante", 11, "561.414.118-94");
+
+call spInsertComentarios("jogo epico nosssa", 12, "674.364.258-46");
+
+call spInsertComentarios("Vampiros são demais", 13, "918.545.618-38");
+call spInsertComentarios("Dificil", 13, "561.454.118-94");
+
+call spInsertComentarios("Mine nunca decepciona", 14, "674.364.258-46");
+call spInsertComentarios("jogo criativo", 14, "333.333.333-33");
+
+call spInsertComentarios("Muito bom", 15, "561.414.118-94");
+call spInsertComentarios("jogo epico nosssa", 15, "561.454.118-94");
+call spInsertComentarios("Bem realista", 15, "674.364.258-46");
+call spInsertComentarios("Horrivel", 15, "333.333.333-33");
+
+call spInsertComentarios("Não paro de jogar", 16, "674.364.258-46");
+call spInsertComentarios("jogo epico", 16, "257.938.258-51");
+call spInsertComentarios("Não joguem", 16, "333.333.333-33");
+
+call spInsertComentarios("Amo esses carros", 17, "257.938.258-51");
+
+
 
 #####################################
 #									#
@@ -472,7 +526,7 @@ call spTotalCarrinho("333.333.333-33");
 select * from tbcliente
 call spDadosFunc(1);
 
-call spMostraProd(1);
+call spMostraProd(8);
 call spMostraProdSimples(2);
 call spMostraProdCategoria("Tiro");
 call spPesquisaProduto("am");
